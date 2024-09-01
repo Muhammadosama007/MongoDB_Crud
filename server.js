@@ -19,6 +19,16 @@ app.get('/books/get', async (req, res) => {
     res.send(bookData);
 })
 
+app.get('/booksByName', async (req, res) => {
+    const bookByName = await Book.findOne({ title: req.query.title })
+    res.send(bookByName)
+})
+
+app.get('/booksByAuthor', async (req, res) => {
+    const booByAuthor = await Book.findOne({ author: req.query.author })
+    res.send(booByAuthor);
+})
+
 app.get('/booksById/:id', async (req, res) => {
     const bookById = await Book.findById(req.params.id);
     res.send(bookById);
@@ -30,8 +40,8 @@ app.patch('/books/Update/:id', async (req, res) => {
     res.send(updateBook);
 })
 
-app.delete('/books/delete/:id',async(req,res)=>{
-    const indexDel=await Book.findByIdAndDelete(req.params.id);
+app.delete('/books/delete/:id', async (req, res) => {
+    const indexDel = await Book.findByIdAndDelete(req.params.id);
     indexDel.save();
     res.send(indexDel);
 })
